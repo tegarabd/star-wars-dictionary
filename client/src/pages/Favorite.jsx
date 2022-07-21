@@ -14,13 +14,26 @@ const CardContainer = styled.div`
 `;
 
 function Favorite() {
-  const [favorite] = useLocalStorage("favorite", []);
+  const [favorite, setFavorite] = useLocalStorage("favorite", []);
+  const handleToggleFavorite = character => {
+    const isFavorite = favorite.find(fav => fav.id === character.id);
+    if (isFavorite) {
+      setFavorite(favorite.filter(fav => fav.id !== character.id));
+    } else {
+      setFavorite([...favorite, character]);
+    }
+  };
 
   return (
     <Container>
       <CardContainer>
-        {favorite.map(fav => (
-          <CharacterCard key={fav.id} character={fav} />
+        {favorite.map(character => (
+          <CharacterCard
+            key={character.id}
+            character={character}
+            isFavorite={favorite.find(fav => fav.id === character.id)}
+            handleToggleFavorite={() => handleToggleFavorite(character)}
+          />
         ))}
       </CardContainer>
     </Container>

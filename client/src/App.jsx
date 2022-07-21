@@ -7,10 +7,17 @@ import Home from "./pages/Home";
 import Favorite from "./pages/Favorite";
 import Detail from "./pages/Detail";
 
+const Wrapper = styled.div`
+  display: flex;
+  justify-content: center;
+  background-color: ${props => props.theme.bg};
+`;
+
 const Container = styled.div`
   background-color: ${props => props.theme.bg};
   color: ${props => props.theme.fg};
   min-height: 100vh;
+  max-width: 578px;
 `;
 
 const Content = styled.div`
@@ -20,17 +27,18 @@ const Content = styled.div`
 function App() {
   return (
     <ThemeHelperProvider>
-      <Container>
-        <Navbar />
-        <Content>
-          <Routes>
-            <Route path="/" element={<Home />} />
-            <Route path="/favorite" element={<Favorite />} />
-            <Route path="/characters/:characterId" element={<Detail />} />
-
-          </Routes>
-        </Content>
-      </Container>
+      <Navbar />
+      <Wrapper>
+        <Container>
+          <Content>
+            <Routes>
+              <Route path="/" element={<Home />} />
+              <Route path="/favorite" element={<Favorite />} />
+              <Route path="/characters/:characterId" element={<Detail />} />
+            </Routes>
+          </Content>
+        </Container>
+      </Wrapper>
     </ThemeHelperProvider>
   );
 }

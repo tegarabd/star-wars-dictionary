@@ -1,4 +1,5 @@
 import React, { useState } from "react";
+import ReactDOM from "react-dom";
 import styled from "styled-components";
 import { FaBars, FaJedi, FaSith, FaTimes } from "react-icons/fa";
 import { Link } from "react-router-dom";
@@ -6,14 +7,22 @@ import { useThemeHelper } from "../contexts/ThemeHelperProvider";
 
 const Nav = styled.nav`
   position: fixed;
-  display: flex;
-  justify-content: space-between;
   height: 3rem;
-  padding: 0 1rem;
   border-bottom: 0.125rem solid ${props => props.theme.accent};
-  align-items: center;
   width: 100%;
   background-color: ${props => props.theme.bg};
+  color: ${props => props.theme.fg};
+  display: flex;
+  justify-content: center;
+`;
+
+const InnerNav = styled.nav`
+  padding: 0 1rem;
+  width: 578px;
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  position: relative;
 `;
 
 const Title = styled(Link)`
@@ -24,17 +33,12 @@ const Title = styled(Link)`
 `;
 
 const NavList = styled.nav`
-  position: absolute;
-  top: 3rem;
-  right: 0;
-  padding: 1rem;
   display: flex;
   flex-direction: column;
   gap: 1rem;
   background-color: ${props => props.theme.bg};
-  border: 0.125rem solid ${props => props.theme.accent};
-  border-top: none;
-  width: 40%;
+  width: 60%;
+  padding: 1rem;
 `;
 
 const NavRight = styled.div`
@@ -44,12 +48,46 @@ const NavRight = styled.div`
 
 const StyledLink = styled(Link)`
   text-decoration: none;
-  color: ${props => props.theme.fg};
+  color: ${props => props.theme.accent};
+  font-weight: bold;
 `;
+
+const NavModalContainer = styled.div`
+  position: fixed;
+  inset: 0;
+  background-color: rgba(0, 0, 0, 0.7);
+  padding: 1rem;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+`;
+
+const CloseBtnWrapper = styled.div`
+  display: flex;
+  justify-content: flex-end;
+  color: ${props => props.theme.accent};
+`;
+
+function NavModal({ isOpen, onClose }) {
+  if (!isOpen) return null;
+
+  return ReactDOM.createPortal(
+    <NavModalContainer>
+      <NavList>
+        <CloseBtnWrapper>
+          <FaTimes onClick={onClose} />
+        </CloseBtnWrapper>
+        <StyledLink to="/">Home</StyledLink>
+        <StyledLink to="/favorite">Favorite</StyledLink>
+      </NavList>
+    </NavModalContainer>,
+    document.getElementById("portal")
+  );
+}
 
 function Navbar() {
   const [navOpen, setNavOpen] = useState(false);
-  const { theme, currentTheme, toggleCurrentTheme } = useThemeHelper();
+  const { currentTheme, toggleCurrentTheme } = useThemeHelper();
 
   const toggleNavOpen = () => {
     setNavOpen(!navOpen);
@@ -57,19 +95,18 @@ function Navbar() {
 
   return (
     <Nav>
-      <Title to="/">Star Wars Dictionary</Title>
-      <NavRight>
-        <div onClick={toggleCurrentTheme}>
-          {currentTheme === theme.light ? <FaJedi /> : <FaSith />}
-        </div>
-        <div onClick={toggleNavOpen}>{navOpen ? <FaTimes /> : <FaBars />}</div>
-      </NavRight>
-      {navOpen && (
-        <NavList>
-          <StyledLink to="/">Home</StyledLink>
-          <StyledLink to="/favorite">Favorite</StyledLink>
-        </NavList>
-      )}
+      <InnerNav>
+        <Title to="/">Star Wars Dictionary</Title>
+        <NavRight>
+          <div onClick={toggleCurrentTheme}>
+            {currentTheme === "light" ? <FaJedi /> : <FaSith />}
+          </div>
+          <div onClick={toggleNavOpen}>
+            {navOpen ? <FaTimes /> : <FaBars />}
+          </div>
+        </NavRight>
+        <NavModal isOpen={navOpen} onClose={() => setNavOpen(false)} />
+      </InnerNav>
     </Nav>
   );
 }

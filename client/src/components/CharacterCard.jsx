@@ -2,7 +2,6 @@ import React from "react";
 import { FaExternalLinkAlt, FaHeart, FaRegHeart } from "react-icons/fa";
 import { Link } from "react-router-dom";
 import styled from "styled-components";
-import useLocalStorage from "../hooks/useLocalStorage";
 
 const Card = styled.div`
   background-color: ${props => props.theme.bg};
@@ -47,28 +46,19 @@ const Name = styled(Link)`
   margin-bottom: 0.5rem;
 `;
 
-function CharacterCard({ character }) {
-  const [favorite, setFavorite] = useLocalStorage("favorite", []);
-  const isfavorite = favorite.find(fav => fav.id === character.id);
-  const handleToggleFavorite = () => {
-    if (isfavorite) {
-      setFavorite(favorite.filter(fav => fav.id !== character.id));
-    } else {
-      setFavorite([...favorite, character]);
-    }
-  };
+function CharacterCard({ character, isFavorite, handleToggleFavorite }) {
 
   return (
     <Card>
-      <CardImg src={character.image} />
+      <CardImg src={character.image} onError={() => this.img.src = 'default.img'} />
       <CardText>
         <CardTopText>
           <Name to={`/characters/${character.id}`}>
             <h3>{character.name}</h3>
             <FaExternalLinkAlt />
           </Name>
-          <FavoriteButton onClick={handleToggleFavorite}>
-            {isfavorite ? <FaHeart /> : <FaRegHeart />}
+          <FavoriteButton onClick={() => handleToggleFavorite(character)}>
+            {isFavorite ? <FaHeart /> : <FaRegHeart />}
           </FavoriteButton>
         </CardTopText>
         <Affiliation>{character.affiliations[0]}</Affiliation>

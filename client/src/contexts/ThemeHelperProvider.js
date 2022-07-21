@@ -1,4 +1,4 @@
-import React, { createContext, useContext } from "react";
+import React, { createContext, useContext, useState } from "react";
 import { ThemeProvider } from "styled-components";
 import useLocalStorage from "../hooks/useLocalStorage";
 
@@ -18,18 +18,26 @@ const theme = {
 const ThemeHelper = createContext();
 
 function ThemeHelperProvider({ children }) {
-  const [currentTheme, setCurrentTheme] = useLocalStorage("theme", theme.light);
+  const [currentTheme, setCurrentTheme] = useLocalStorage("theme", "light");
+  const [currentThemeConfig, setCurrentThemeConfig] = useState(
+    currentTheme === "light" ? theme.light : theme.dark
+  );
 
   const toggleCurrentTheme = () => {
-    setCurrentTheme(currentTheme === theme.light ? theme.dark : theme.light);
-    setCurrentTheme(currentTheme === theme.light ? theme.dark : theme.light);
+    if (currentTheme === "light") {
+      setCurrentTheme("dark");
+      setCurrentThemeConfig(theme.dark);
+    } else if (currentTheme === "dark") {
+      setCurrentTheme("light");
+      setCurrentThemeConfig(theme.light);
+    }
   };
 
-  const value = { theme, currentTheme, toggleCurrentTheme };
+  const value = { currentTheme, toggleCurrentTheme };
 
   return (
     <ThemeHelper.Provider value={value}>
-      <ThemeProvider theme={currentTheme}>{children}</ThemeProvider>
+      <ThemeProvider theme={currentThemeConfig}>{children}</ThemeProvider>
     </ThemeHelper.Provider>
   );
 }
