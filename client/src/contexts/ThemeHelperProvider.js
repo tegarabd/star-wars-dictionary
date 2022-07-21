@@ -30,6 +30,9 @@ function ThemeHelperProvider({ children }) {
     } else if (currentTheme === "dark") {
       setCurrentTheme("light");
       setCurrentThemeConfig(theme.light);
+    } else {
+      setCurrentTheme("dark");
+      setCurrentThemeConfig(theme.dark);
     }
   };
 
