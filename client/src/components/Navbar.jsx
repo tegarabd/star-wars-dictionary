@@ -38,6 +38,7 @@ const NavList = styled.nav`
   gap: 1rem;
   background-color: ${props => props.theme.bg};
   width: 60%;
+  max-width: 578px;
   padding: 1rem;
 `;
 
