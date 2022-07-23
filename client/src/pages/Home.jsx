@@ -14,7 +14,7 @@ const Container = styled.div`
 
 const CardContainer = styled.div`
   display: grid;
-  grid-template-columns: repeat(auto-fill, minmax(10rem, 1fr));
+  grid-template-columns: repeat(auto-fit, minmax(11rem, 1fr));
   gap: 1rem;
 `;
 
@@ -27,6 +27,7 @@ const SearchInput = styled.input`
   margin-bottom: 2rem;
   padding: 0.25rem 1rem;
   background-color: ${props => props.theme.bg};
+  color: ${props => props.theme.fg};
 `;
 
 const SearchWrapper = styled.div`
@@ -80,7 +81,7 @@ function Home() {
 
   return (
     <Container>
-      <Landing />
+      {search === "" && <Landing />}
       <SearchWrapper>
         <SearchInput
           type="search"

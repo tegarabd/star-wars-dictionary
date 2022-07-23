@@ -6,6 +6,7 @@ import styled from "styled-components";
 const Card = styled.div`
   background-color: ${props => props.theme.bg};
   border: 0.125rem solid ${props => props.theme.accent};
+  min-width: 11rem;
 `;
 
 const CardImg = styled.img`
@@ -38,6 +39,7 @@ const FavoriteButton = styled.button`
   outline: none;
   width: 2rem;
   height: 2rem;
+  cursor: pointer;
 `;
 
 const Name = styled(Link)`

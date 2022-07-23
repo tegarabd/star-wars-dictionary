@@ -67,14 +67,19 @@ const CloseBtnWrapper = styled.div`
   display: flex;
   justify-content: flex-end;
   color: ${props => props.theme.accent};
+  cursor: pointer;
+`;
+
+const BtnWrapper = styled.div`
+  cursor: pointer;
 `;
 
 function NavModal({ isOpen, onClose }) {
   if (!isOpen) return null;
 
   return ReactDOM.createPortal(
-    <NavModalContainer>
-      <NavList>
+    <NavModalContainer onClick={onClose}>
+      <NavList onClick={e => e.stopPropagation()}>
         <CloseBtnWrapper>
           <FaTimes onClick={onClose} />
         </CloseBtnWrapper>
@@ -99,12 +104,12 @@ function Navbar() {
       <InnerNav>
         <Title to="/">Star Wars Dictionary</Title>
         <NavRight>
-          <div onClick={toggleCurrentTheme}>
+          <BtnWrapper onClick={toggleCurrentTheme}>
             {currentTheme === "light" ? <FaJedi /> : <FaSith />}
-          </div>
-          <div onClick={toggleNavOpen}>
+          </BtnWrapper>
+          <BtnWrapper onClick={toggleNavOpen}>
             {navOpen ? <FaTimes /> : <FaBars />}
-          </div>
+          </BtnWrapper>
         </NavRight>
         <NavModal isOpen={navOpen} onClose={() => setNavOpen(false)} />
       </InnerNav>
