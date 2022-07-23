@@ -7,6 +7,7 @@ const Card = styled.div`
   background-color: ${props => props.theme.bg};
   border: 0.125rem solid ${props => props.theme.accent};
   min-width: 11rem;
+  border-radius: 0.5rem;
 `;
 
 const CardImg = styled.img`
@@ -14,6 +15,8 @@ const CardImg = styled.img`
   height: 16rem;
   object-fit: cover;
   object-position: top;
+  border-top-left-radius: 0.5rem;
+  border-top-right-radius: 0.5rem;
 `;
 
 const CardText = styled.div`
@@ -49,10 +52,12 @@ const Name = styled(Link)`
 `;
 
 function CharacterCard({ character, isFavorite, handleToggleFavorite }) {
-
   return (
     <Card>
-      <CardImg src={character.image} onError={() => this.img.src = 'default.img'} />
+      <CardImg
+        src={character.image}
+        onError={() => (this.img.src = "default.img")}
+      />
       <CardText>
         <CardTopText>
           <Name to={`/characters/${character.id}`}>
