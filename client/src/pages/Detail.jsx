@@ -74,7 +74,7 @@ function Detail() {
       </a>
 
       <DataWrapper>
-        <p>Height</p> <b>{height}m</b>
+        <p className={`flex asdasd ${clicked ? 'blue' : 'red'}`} >Height</p> <b>{height}m</b>
         <p>Mass</p> <b>{mass}kg</b>
         <p>Gender</p> <b>{gender}</b>
         <p>Born</p>
