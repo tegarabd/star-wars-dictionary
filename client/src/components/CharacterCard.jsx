@@ -1,13 +1,15 @@
 import React from "react";
-import { FaExternalLinkAlt, FaHeart, FaRegHeart } from "react-icons/fa";
-import { Link } from "react-router-dom";
+import { FaHeart, FaRegHeart } from "react-icons/fa";
+import { useNavigate } from "react-router-dom";
 import styled from "styled-components";
 
 const Card = styled.div`
   background-color: ${props => props.theme.bg};
   border: 0.125rem solid ${props => props.theme.accent};
-  min-width: 11rem;
+  width: 10rem;
   border-radius: 0.5rem;
+  overflow: hidden;
+  cursor: pointer;
 `;
 
 const CardImg = styled.img`
@@ -15,8 +17,6 @@ const CardImg = styled.img`
   height: 16rem;
   object-fit: cover;
   object-position: top;
-  border-top-left-radius: 0.5rem;
-  border-top-right-radius: 0.5rem;
 `;
 
 const CardText = styled.div`
@@ -45,26 +45,24 @@ const FavoriteButton = styled.button`
   cursor: pointer;
 `;
 
-const Name = styled(Link)`
-  color: ${props => props.theme.fg};
-  text-decoration: none;
-  margin-bottom: 0.5rem;
-`;
-
 function CharacterCard({ character, isFavorite, handleToggleFavorite }) {
+  const navigate = useNavigate();
+
   return (
-    <Card>
+    <Card onClick={() => navigate(`characters/${character.id}`)}>
       <CardImg
         src={character.image}
         onError={() => (this.img.src = "default.img")}
       />
       <CardText>
         <CardTopText>
-          <Name to={`/characters/${character.id}`}>
-            <h3>{character.name}</h3>
-            <FaExternalLinkAlt />
-          </Name>
-          <FavoriteButton onClick={() => handleToggleFavorite(character)}>
+          <h3>{character.name}</h3>
+          <FavoriteButton
+            onClick={e => {
+              e.stopPropagation();
+              handleToggleFavorite(character);
+            }}
+          >
             {isFavorite ? <FaHeart /> : <FaRegHeart />}
           </FavoriteButton>
         </CardTopText>

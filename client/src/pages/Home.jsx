@@ -5,17 +5,12 @@ import styled from "styled-components";
 import CharacterCard from "../components/CharacterCard";
 import useLocalStorage from "../hooks/useLocalStorage";
 import Landing from "../components/Landing";
+import CardContainer from "../components/CardContainer";
 
 const Container = styled.div`
   padding: 1rem;
   width: 100%;
   padding-top: 0;
-`;
-
-const CardContainer = styled.div`
-  display: grid;
-  grid-template-columns: repeat(auto-fit, minmax(11rem, 1fr));
-  gap: 1rem;
 `;
 
 const SearchInput = styled.input`

@@ -7,11 +7,17 @@ const theme = {
     bg: "#e8e8e8",
     fg: "#212121",
     accent: "#0085ff",
+    accentR: 0,
+    accentG: 133,
+    accentB: 255,
   },
   dark: {
     bg: "#212121",
     fg: "#e8e8e8",
     accent: "#e84f4f",
+    accentR: 232,
+    accentG: 79,
+    accentB: 79,
   },
 };
 
