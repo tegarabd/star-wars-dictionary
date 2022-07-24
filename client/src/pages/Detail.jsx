@@ -94,7 +94,10 @@ const capitalize = words => {
   if (!words) return "-";
   return words
     .split(" ")
-    .map(word => `${word[0].toUpperCase()}${word.substring(1)}`)
+    .map(word => {
+      if (word.length < 1) return ""
+      else return word[0].toUpperCase() + word.substring(1)
+    })
     .join(" ");
 };
 
