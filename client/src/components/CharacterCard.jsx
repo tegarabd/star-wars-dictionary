@@ -49,7 +49,7 @@ function CharacterCard({ character, isFavorite, handleToggleFavorite }) {
   const navigate = useNavigate();
 
   return (
-    <Card onClick={() => navigate(`characters/${character.id}`)}>
+    <Card onClick={() => navigate(`/characters/${character.id}`)}>
       <CardImg
         src={character.image}
         onError={() => (this.img.src = "default.img")}
