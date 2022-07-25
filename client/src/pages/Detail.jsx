@@ -97,6 +97,7 @@ const capitalize = words => {
     .split(" ")
     .map(word => {
       if (word.length < 1) return "";
+      else if (word === "of" || word === "to" || word === "and") return word.toLowerCase();
       else return word[0].toUpperCase() + word.substring(1);
     })
     .join(" ");
@@ -164,11 +165,11 @@ function Detail() {
           </Tr>
           <Tr>
             <Td>Height</Td>
-            <Td>{height || "-"} m</Td>
+            <Td>{height ? `${height} meters` : "-"}</Td>
           </Tr>
           <Tr>
             <Td>Mass</Td>
-            <Td>{mass || "-"} kg</Td>
+            <Td>{mass ? `${mass} kilograms` : "-"}</Td>
           </Tr>
           <Tr>
             <Td>Gender</Td>
@@ -217,7 +218,9 @@ function Detail() {
       <AffiliationsContainer>
         {affiliations.length > 0
           ? affiliations.map(affiliation => (
-              <Affiliation key={affiliation}>{affiliation}</Affiliation>
+              <Affiliation key={affiliation}>
+                {capitalize(affiliation)}
+              </Affiliation>
             ))
           : "No Affiliations"}
       </AffiliationsContainer>
@@ -226,7 +229,9 @@ function Detail() {
       <AffiliationsContainer>
         {formerAffiliations.length > 0
           ? formerAffiliations.map(affiliation => (
-              <Affiliation key={affiliation}>{affiliation}</Affiliation>
+              <Affiliation key={affiliation}>
+                {capitalize(affiliation)}
+              </Affiliation>
             ))
           : "No Former Affiliations"}
       </AffiliationsContainer>
