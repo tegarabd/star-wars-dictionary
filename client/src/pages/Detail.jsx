@@ -3,6 +3,7 @@ import React from "react";
 import { FaExternalLinkAlt } from "react-icons/fa";
 import { useParams } from "react-router-dom";
 import styled from "styled-components";
+import Spinner from "../components/Spinner";
 import GET_CHARACTER_BY_ID from "../graphql/getCharacterById";
 
 const Image = styled.img`
@@ -95,8 +96,8 @@ const capitalize = words => {
   return words
     .split(" ")
     .map(word => {
-      if (word.length < 1) return ""
-      else return word[0].toUpperCase() + word.substring(1)
+      if (word.length < 1) return "";
+      else return word[0].toUpperCase() + word.substring(1);
     })
     .join(" ");
 };
@@ -120,7 +121,7 @@ function Detail() {
   }
 
   if (loading) {
-    return <h1>Loading...</h1>;
+    return <Spinner />;
   }
 
   const {

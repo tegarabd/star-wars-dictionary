@@ -6,6 +6,7 @@ import CharacterCard from "../components/CharacterCard";
 import useLocalStorage from "../hooks/useLocalStorage";
 import Landing from "../components/Landing";
 import CardContainer from "../components/CardContainer";
+import Spinner from "../components/Spinner";
 
 const Container = styled.div`
   padding: 1rem;
@@ -49,7 +50,7 @@ function CharacterList({ search }) {
   }
 
   if (loading) {
-    return <h1>Loading...</h1>;
+    return <Spinner />;
   }
 
   return (
