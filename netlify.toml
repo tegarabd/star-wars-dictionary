@@ -5,3 +5,4 @@
 [functions]
   node_bundler = "esbuild"
   external_node_modules = ["apollo-server-lambda"]
+  included_files = ["**.json"]
