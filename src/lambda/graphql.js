@@ -33,7 +33,7 @@ const typeDefs = gql`
 const resolvers = {
   Query: {
     characters: () => characters,
-    character: (id) => characters.find((character) => character.id == id),
+    character: (_, args) => characters.find((character) => character.id == args.id),
   },
 };
 
